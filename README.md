@@ -8,7 +8,8 @@
 > and auto-imports for most aspect of frontend development.
 >
 > Also included, is a litany of different Laravel helpers, enums and traits, and frontend composables and
-> components to make developing a Laravel and Inertia application much smoother and much faster.
+> components and custom error handling. All this (and much more) is included in an effort to make developing a Laravel
+> and Inertia application much smoother and much faster.
 
 ## Setup
 
