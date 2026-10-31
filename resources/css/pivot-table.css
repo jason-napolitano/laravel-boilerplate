@@ -1,0 +1,284 @@
+@reference "tailwindcss";
+
+/* pvtUi */
+table.pvtUi {
+  @apply align-top table-fixed w-full text-left border-collapse leading-6;
+}
+table.pvtUi > :not(caption) > * > * {
+  @apply border border-stone-200 rounded;
+}
+table.pvtUi td {
+  @apply p-2 overflow-auto;
+}
+table.pvtUi > tbody > tr:nth-child(2) > :nth-child(2),
+table.pvtUi > tbody > tr:nth-child(3) > :nth-child(1) {
+  @apply bg-stone-700/5;
+}
+table.pvtUi > tbody td:nth-child(1) {
+  @apply w-[25%];
+}
+
+/* pvtUi selector */
+.pvtUi .pvtDropdown {
+  @apply block
+    w-full
+    font-thin
+    leading-normal
+    text-stone-600
+    bg-stone-50
+    bg-no-repeat
+    border
+    border-stone-200
+    outline-0
+    appearance-none
+    transition-[border-color,box-shadow]
+    duration-150 ease-in-out
+    bg-position-[right_0.75rem_center]
+    py-1.5 pr-9 pl-3
+    bg-size-[16px_12px];
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* pvtUi selector */
+.pvtUi .pvtVals :first-child {
+  @apply flex;
+}
+.pvtUi .pvtVals .pvtDropdown:not(:first-child) {
+  @apply mt-2;
+}
+.pvtUi .pvtVals .pvtRowOrder,
+.pvtUi .pvtVals .pvtColOrder {
+  @apply cursor-pointer
+    w-3.75
+    ml-1.25
+    select-none
+    no-underline
+    flex
+    justify-center
+    items-center;
+}
+
+/* pivot Axis Container */
+.pvtUi .pvtAxisContainer.pvtHorizList li {
+  @apply inline-flex ml-0.5 flex-wrap;
+}
+.pvtUi .pvtAxisContainer.pvtVertList.pvtRows {
+  @apply align-top;
+}
+.pvtUi .pvtAxisContainer.pvtVertList.pvtRows li {
+  @apply flex mb-0.5;
+}
+.pvtUi .pvtAxisContainer li {
+  @apply items-stretch list-none cursor-move;
+}
+.pvtUi .pvtAxisContainer li .pvtAttr {
+  @apply border border-stone-300 bg-stone-200 text-stone-600 whitespace-nowrap rounded-sm select-none;
+}
+.pvtUi .pvtAxisContainer li .pvtAttr:hover:not(.disabled, .sortonly) {
+  @apply border border-stone-400 bg-stone-300 transition ease-in-out;
+}
+.pvtUi .pvtAxisContainer li .pvtAttr.disabled {
+  @apply opacity-65 cursor-default;
+}
+.pvtUi .pvtAxisContainer li .pvtAttr.sortonly {
+  @apply border border-blue-500 bg-white text-blue-500;
+}
+.pvtUi .pvtAxisContainer li .pvtAttr .pvtFilterBox {
+  @apply absolute
+    flex
+    flex-wrap
+    items-stretch
+    z-1
+    bg-white
+    select-none
+    border
+    border-stone-200
+    mt-2 -ml-2
+    rounded
+    max-w-150
+    min-w-52.5
+    min-h-25
+    text-black
+    px-3
+    py-2;
+}
+
+.pvtFilterBox .pvtSearchContainer .pvtSearch {
+  @apply rounded-r-none border-r-0;
+}
+
+/* pvtTable */
+table.pvtTable {
+  @apply w-full border-collapse
+    text-stone-800
+    border-stone-50;
+}
+
+table.pvtTable thead,
+table.pvtTable tbody,
+table.pvtTable tr,
+table.pvtTable td,
+table.pvtTable th {
+  @apply border-0
+    border-solid
+    border-inherit;
+}
+
+table.pvtTable > :not(caption) > * > * {
+  @apply border-b border-b-[#dee2e6] bg-transparent px-2 py-2;
+  box-shadow: inset 0 0 0 9999px transparent;
+}
+
+table.pvtTable thead {
+  @apply align-bottom;
+}
+
+table.pvtTable tbody {
+  @apply align-[inherit];
+}
+
+table.pvtTable th {
+  @apply font-bold;
+}
+
+/* pvtCheckContainer */
+.pvtCheckContainer p {
+  @apply min-h-6 pl-[1.5em] mb-0.5 flex items-center gap-1;
+}
+
+.pvtCheckContainer p:not(:first-child) {
+  @apply mt-0.5;
+}
+
+.pvtCheckContainer p:last-child {
+  @apply mb-0;
+}
+
+.pvtCheckContainer p input[type='checkbox'] {
+  @apply float-left
+    ml-[-1.5em]
+    h-[1em]
+    w-[1em]
+    rounded-[0.25em]
+    border
+    border-[rgba(0,0,0,0.25)]
+    bg-white
+    bg-center
+    bg-contain
+    appearance-none
+    align-top;
+}
+
+.pvtCheckContainer p.selected input[type='checkbox'] {
+  @apply border-blue-600 bg-blue-600;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.pvtCheckContainer p .pvtOnly {
+  @apply absolute
+    right-8
+    cursor-pointer
+    border
+    border-transparent
+    rounded-md
+    bg-transparent
+    px-0
+    text-center
+    text-base
+    font-normal
+    leading-6
+    text-[#0d6efd]
+    underline
+    transition-[color,background-color,border-color,box-shadow]
+    duration-150
+    ease-in-out
+    select-none
+    align-middle;
+}
+
+.pvtCheckContainer .pvtOnly:hover {
+  @apply text-[#0a58ca];
+}
+
+/* pvtSearch */
+.pvtSearch {
+  @apply rounded-md border
+    border-stone-50
+    bg-white
+    px-3 py-1.5
+    text-base
+    font-normal
+    text-[#6c757d]
+    outline-none
+    transition-[color,background-color,border-color,box-shadow]
+    duration-150
+    ease-in-out;
+}
+
+/* pvtButton */
+.pvtButton {
+  @apply cursor-pointer
+    rounded-sm
+    border
+    border-stone-300
+    bg-transparent
+    px-3 py-1.5
+    text-center
+    text-base
+    font-normal
+    leading-6
+    text-[#6c757d]
+    no-underline
+    select-none
+    transition-[color,background-color,border-color,box-shadow]
+    duration-150
+    ease-in-out
+    align-middle;
+}
+
+.pvtButton:hover,
+.pvtButton:active {
+  @apply border-[#6c757d]
+    bg-[#6c757d]
+    text-white;
+}
+
+/* pvtTriangle */
+.pvtTriangle {
+  @apply cursor-pointer
+    text-white;
+}
+
+/* pvtFilteredAttribute */
+.pvtFilteredAttribute {
+  @apply italic;
+}
+
+/* pvtFilterTextClear */
+.pvtFilterTextClear {
+  @apply absolute
+    right-1.25
+    top-1.25
+    cursor-pointer
+    text-[18px]
+    no-underline;
+
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 1 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+}
+
+/* media css */
+@media screen and (max-width: 576px) {
+  .pvtRenderers {
+    @apply w-full;
+  }
+
+  .pvtAxisContainer {
+    @apply hidden;
+  }
+}
+
+@media screen and (width: 768px) {
+  .pvtRenderers {
+    @apply w-[40%];
+  }
+}

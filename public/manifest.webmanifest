@@ -1,0 +1,12 @@
+{
+    "id": "/",
+    "name": "My Laravel App",
+    "short_name": "My App",
+    "description": "My Laravel application",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff"
+}

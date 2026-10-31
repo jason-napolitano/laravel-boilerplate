@@ -1,0 +1,129 @@
+<?php
+
+namespace {{ namespace }} {
+
+    use {{ rootNamespace }}Http\Controllers;
+    use Inertia\Response;
+    use Illuminate\Http;
+    use App\Models;
+
+    class {{ class }} extends Controllers\Controller
+    {
+        /**
+         * Display a listing of the resource.
+         *
+         * @return Response
+         */
+        public function index(): Response
+        {
+            return inertia();
+        }
+
+        /**
+         * Show the form for creating a new resource.
+         *
+         * @return Response
+         */
+        public function create(): Response
+        {
+            return inertia();
+        }
+
+        /**
+         * Store a newly created resource in storage.
+         *
+         * @param Http\Request $request
+         *
+         * @return Http\RedirectResponse
+         */
+        public function store(Http\Request $request): Http\RedirectResponse
+        {
+            return back();
+        }
+
+        /**
+         * Display the specified resource.
+         *
+         * @param Models\BaseModel $model
+         *
+         * @return Response
+         */
+        public function show(Models\BaseModel $model): Response
+        {
+            return inertia();
+        }
+
+        /**
+         * Show the form for editing the specified resource.
+         *
+         * @param Models\BaseModel $model
+         *
+         * @return Response
+         */
+        public function edit(Models\BaseModel $model): Response
+        {
+            return inertia();
+        }
+
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param Http\Request $request
+         * @param Models\BaseModel $model
+         *
+         * @return Http\RedirectResponse
+         */
+        public function update(Http\Request $request, Models\BaseModel $model): Http\RedirectResponse
+        {
+            return back();
+        }
+
+        /**
+         * Remove the specified resource from storage.
+         *
+         * @param Models\BaseModel $model
+         *
+         * @return Http\RedirectResponse
+         */
+        public function destroy(Models\BaseModel $model): Http\RedirectResponse
+        {
+            return back();
+        }
+
+        /**
+         * Remove the specified resources from storage.
+         *
+         * @param array $models
+         *
+         * @return Http\RedirectResponse
+         */
+        public function destroyMany(array $models): Http\RedirectResponse
+        {
+            return back();
+        }
+
+        /**
+         * Restore the specified resource from storage.
+         *
+         * @param Models\BaseModel $model
+         *
+         * @return Http\RedirectResponse
+         */
+        public function restore(Models\BaseModel $model): Http\RedirectResponse
+        {
+            return back();
+        }
+
+        /**
+         * Restore the specified resources from storage.
+         *
+         * @param array $models
+         *
+         * @return Http\RedirectResponse
+         */
+        public function restoreMany(array $models): Http\RedirectResponse
+        {
+            return back();
+        }
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "require": {
+        "php": "^8.3",
+        "barryvdh/laravel-dompdf": "^v3.1.2",
+        "inertiajs/inertia-laravel": "^v3.3.1",
+        "laravel/fortify": "^1.41",
+        "laravel/framework": "^v13.35.0",
+        "laravel/reverb": "^v1.12.0",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^v3.0.2",
+        "mews/purifier": "^3.4.4",
+        "spatie/laravel-medialibrary": "^11.23.9",
+        "spatie/laravel-permission": "7.4.2",
+        "spatie/laravel-query-builder": "7.3.5",
+        "spatie/laravel-tags": "^4.12.0",
+        "staudenmeir/belongs-to-through": "^v2.16.4",
+        "stechstudio/phpinfo": "^1.1",
+        "tightenco/ziggy": "^v2.6.4"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^v1.24.1",
+        "fruitcake/laravel-debugbar": "^v4.4.2",
+        "laravel/pail": "^v1.2.7",
+        "laravel/pint": "^v1.30.5",
+        "mockery/mockery": "^1.6.15",
+        "nunomaduro/collision": "^v8.9.5",
+        "pestphp/pest": "^v4.7.5",
+        "pestphp/pest-plugin-laravel": "^v4.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install --ignore-scripts",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

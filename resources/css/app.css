@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+@import "./pivot-table.css";
+@import './fonts.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Raleway', ui-sans-serif, system-ui, sans-serif;
+}
+
+.el-select__wrapper,
+.el-textarea__inner,
+.el-select__popper,
+.el-input__wrapper,
+.el-message-box,
+.el-textarea,
+.el-dialog,
+.el-button,
+.el-alert {
+    border-radius: 0 !important;
+}
+
+.sidebar-item {
+    @apply flex items-center sm:h-12 md:h-22 justify-center gap-1 border border-transparent px-2 py-1 text-xs hover:border-blue-200 hover:bg-blue-100 hover:text-stone-700 dark:text-slate-50 dark:hover:border-stone-600 dark:hover:bg-stone-700 dark:hover:text-stone-50;
+}
+
+.active-sidebar-item {
+    @apply flex items-center gap-1 border border-stone-200 bg-[#F5F7FA] px-3 py-2 text-xs text-stone-700 dark:border-stone-600 dark:bg-stone-700 dark:text-slate-50;
+}
+
+.el-collapse-item__title {
+    @apply ml-2;
+}

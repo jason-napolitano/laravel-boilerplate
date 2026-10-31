@@ -1,2 +1,17 @@
-# laravel-boilerplate
-An opinionated boilerplate for Laravel. Includes authentication, authorization, passkeys and a pre-built user manager.
+# Installation
+
+```bash
+$ cp .env.example .env
+```
+
+```bash
+$ php artisan key:generate
+```
+
+```bash
+$ php artisan storage:link
+```
+
+```bash
+$ php artisan migrate:fresh --seed
+```
