@@ -30,7 +30,7 @@ $ php artisan migrate:fresh --seed
 ```
 
 ### Default Admin Account
- - email: `admin@admin.com`
+ - email: `admin@example.com`
  - password: `password`
 
 ## Custom Commands
