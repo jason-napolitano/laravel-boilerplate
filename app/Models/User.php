@@ -69,9 +69,9 @@ namespace App\Models {
             }
         }
 
-        public function scopeIsBanned(Builder $query, bool $value = true): void
+        public function scopeIsBanned(Builder $query): void
         {
-            $query->where('is_banned', $value);
+            $query->where('is_banned', true);
         }
 
         public function scopeIsNotBanned(Builder $query): void
