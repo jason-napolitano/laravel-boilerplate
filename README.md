@@ -53,7 +53,7 @@ php artisan clear:views
 ```
 
 `optimize:all`
-> Runs all the commands above, alongside `php artisan optimize:all`
+> Runs all the commands above, alongside `php artisan optimize:clear`
 
 ```bash
 php artisan optimize:all
