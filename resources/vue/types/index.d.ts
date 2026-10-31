@@ -3,9 +3,9 @@ import type { PageProps } from '@inertiajs/core'
 export interface SharedData extends PageProps {
     auth: {
         permissions: Permission[] | []
-        settings: Settings
         user: User | null
     }
+    settings: Settings
 }
 
 export interface DatabaseRecord {
