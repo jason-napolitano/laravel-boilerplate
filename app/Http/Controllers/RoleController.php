@@ -26,7 +26,7 @@ namespace App\Http\Controllers {
         {
             $role = BaseRole::create($request->validated());
             $role->givePermissionTo(
-                Role::findByName('member')->getPermissionNames()
+                Role::findByName(env('APP_DEFAULT_ROLE'))->getPermissionNames()
             );
 
             return back();
