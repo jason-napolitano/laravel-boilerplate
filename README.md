@@ -10,7 +10,7 @@
 > Also included, is a litany of different Laravel helpers, enums and traits, and frontend composables and
 > components to make developing a Laravel and Inertia application much smoother and much faster.
 
-## Installation
+## Setup
 
 ```bash
 $ cp .env.example .env
