@@ -29,6 +29,10 @@ $ php artisan storage:link
 $ php artisan migrate:fresh --seed
 ```
 
+### Default Admin Account
+ - email: `admin@admin.com`
+ - password: `password`
+
 ## Custom Commands
 
 `clear:inertia`
