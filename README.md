@@ -1,6 +1,6 @@
 # Laravel Boilerplate
 
-> > An opinionated boilerplate for Laravel and Inertia, using Vue 3. Includes authentication, authorization
+> An opinionated boilerplate for Laravel and Inertia, using Vue 3. Includes authentication, authorization
 > and passkey support.
 >
 > This boilerplate houses a built-in user manager, role and permission manager, application settings
