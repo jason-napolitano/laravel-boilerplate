@@ -16,6 +16,7 @@ namespace Database\Seeders {
                 'items_per_page'        => env('APP_DEFAULT_PAGINATION'),
                 'enable_passkeys'       => env('APP_ENABLE_PASSKEYS'),
                 'enable_reset_password' => env('APP_ENABLE_RESET_PASSWORD'),
+                'enable_otp_support'    => env('APP_ENABLE_OTP_SUPPORT'),
                 'enable_registration'   => env('APP_ENABLE_REGISTRATION'),
             ]);
         }

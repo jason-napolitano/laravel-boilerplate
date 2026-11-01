@@ -23,6 +23,7 @@ namespace App\Http\Requests\Settings {
                 'enable_passkeys'       => ['sometimes', 'boolean'],
                 'enable_reset_password' => ['sometimes', 'boolean'],
                 'enable_registration'   => ['sometimes', 'boolean'],
+                'enable_otp_support'    => ['sometimes', 'boolean'],
             ];
         }
     }

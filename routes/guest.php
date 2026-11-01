@@ -14,11 +14,11 @@ Route::middleware(['guest'])->group(function () {
 
     // ------------------------------------------------------------------------
     // login
-    Route::post('login', [Controllers\Auth\AuthenticationController::class, 'store'])
-        ->name('login.store');
+    // Route::post('login', [Controllers\Auth\AuthenticationController::class, 'store'])
+    //     ->name('login.store');
 
-    Route::get('login', [Controllers\Auth\AuthenticationController::class, 'index'])
-        ->name('login');
+    // Route::get('login', [Controllers\Auth\AuthenticationController::class, 'index'])
+    //     ->name('login');
 
     // ------------------------------------------------------------------------
     // password reset
@@ -33,4 +33,13 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post('/reset-password', [Controllers\Auth\ResetPasswordController::class, 'update'])
         ->name('password.update');
+
+    // ------------------------------------------------------------------------
+    // otp support
+    Route::get('/otp/challenge', [Controllers\Auth\OTPVerificationController::class, 'create'])
+        ->name('otp.challenge');
+
+    Route::post('/otp/verify', [Controllers\Auth\OTPVerificationController::class, 'store'])
+        ->middleware('throttle:otp')
+        ->name('otp.verify');
 });

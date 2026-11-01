@@ -21,6 +21,7 @@ namespace Database\Seeders {
             Permission::create(['name' => 'enable_password_reset_settings']);
             Permission::create(['name' => 'enable_registration_settings']);
             Permission::create(['name' => 'enable_passkeys_settings']);
+            Permission::create(['name' => 'enable_one_time_passwords']);
 
             // --------------------------------------------
             // dashboard

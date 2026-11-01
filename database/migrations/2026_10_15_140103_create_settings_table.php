@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->boolean('enable_passkeys');
             $table->boolean('enable_reset_password');
             $table->boolean('enable_registration');
+            $table->boolean('enable_otp_support');
             $table->timestamps();
             $table->softDeletes();
         });

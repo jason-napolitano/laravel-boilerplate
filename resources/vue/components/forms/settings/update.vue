@@ -24,8 +24,8 @@
                 </el-form-item>
             </el-col>
             <el-col :span="6">
-                <el-form-item label="2-Factor Authentication">
-                    <el-select disabled placeholder="Feature Coming Soon">
+                <el-form-item label="OTP Support" :error="form.errors.enable_otp_support">
+                    <el-select v-model="form.enable_otp_support" :disabled="cannot('enable_one_time_passwords')">
                         <el-option v-for="option in dropdownOptions" :value="option.value" :key="option.value" :label="option.label" />
                     </el-select>
                 </el-form-item>
@@ -99,10 +99,11 @@ const dropdownOptions = [
 // form data
 const form = useForm({
     title: props.settings.title,
-    description: props.settings.description,
     version: props.settings.version,
+    description: props.settings.description,
     items_per_page: props.settings.items_per_page,
     enable_passkeys: props.settings.enable_passkeys,
+    enable_otp_support: props.settings.enable_otp_support,
     enable_registration: props.settings.enable_registration,
     enable_reset_password: props.settings.enable_reset_password,
 })

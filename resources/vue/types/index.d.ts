@@ -33,7 +33,7 @@ export interface Settings extends DatabaseRecord {
     enable_reset_password: boolean
     enable_registration: boolean
     enable_passkeys: boolean
-    enable_2fa: boolean
+    enable_otp_support: boolean
 }
 
 export interface PaginateData {

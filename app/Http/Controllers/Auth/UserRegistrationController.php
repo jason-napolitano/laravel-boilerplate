@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Auth {
     {
         public function index(): Response
         {
-            abort_if(!$this->settings->enable_registration, 403);
+            abort_if(!$this->settings->enable_registration, 404);
 
             return inertia('auth/register');
         }

@@ -16,7 +16,7 @@ namespace Database\Seeders {
 
             $user = User::create([
                 'password'      => bcrypt('password'),
-                'email'         => 'admin@example.com',
+                'email'         => 'dummy@localhost',
                 'username'      => fake()->unique()->username(),
                 'name'          => fake()->name(),
                 'biography'     => fake()->paragraph(15),

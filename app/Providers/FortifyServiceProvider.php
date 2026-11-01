@@ -2,17 +2,18 @@
 
 namespace App\Providers {
 
-    use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
-    use App\Actions\Fortify\UpdateUserProfileInformation;
-    use App\Actions\Fortify\UpdateUserPassword;
+    use App\Models\Setting;
+    use App\Services\SettingsService;
+    use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
+    use Laravel\Fortify\Actions\CanonicalizeUsername;
+    use App\Actions\Fortify\AuthenticateWithOtp;
     use Illuminate\Support\Facades\RateLimiter;
-    use App\Actions\Fortify\ResetUserPassword;
     use Illuminate\Cache\RateLimiting\Limit;
     use Illuminate\Support\ServiceProvider;
-    use App\Actions\Fortify\CreateNewUser;
+    use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+    use Laravel\Fortify\Fortify;
     use Illuminate\Http\Request;
     use Illuminate\Support\Str;
-    use Laravel\Fortify\Fortify;
 
     class FortifyServiceProvider extends ServiceProvider
     {
@@ -23,28 +24,47 @@ namespace App\Providers {
 
         public function boot(): void
         {
-            Fortify::createUsersUsing(CreateNewUser::class);
-            Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-            Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-            Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-            Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
+            // fortify login vue
+            Fortify::loginView(static fn () => inertia('auth/login'));
 
+            // application settings
+            $settings = app(SettingsService::class);
+
+            // if otp support is enabled
+            if ($settings->enable_otp_support) {
+                // authenticate using otp
+                Fortify::authenticateThrough(function (Request $request) {
+                    return array_filter([
+                        config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+                        config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
+                        AuthenticateWithOtp::class,
+                    ]);
+                });
+            }
+
+            // run the rate limiters
+            $this->runRateLimiters();
+        }
+
+        private function runRateLimiters(): void
+        {
+            // login rate limiter
             RateLimiter::for('login', function (Request $request) {
                 $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
-
                 return Limit::perMinute(5)->by($throttleKey);
             });
 
-            RateLimiter::for('two-factor', function (Request $request) {
-                return Limit::perMinute(5)->by($request->session()->get('login.id'));
-            });
-
+            // passkeys rate limiter
             RateLimiter::for('passkeys', function (Request $request) {
                 $credentialId = $request->input('credential.id');
-
                 return Limit::perMinute(10)->by(
                     ($credentialId ?: $request->session()->getId()) . '|' . $request->ip()
                 );
+            });
+
+            // otp rate limiter
+            RateLimiter::for('otp', function (Request $request) {
+                return Limit::perMinute(5)->by($request->session()->getId());
             });
         }
     }
