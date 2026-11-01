@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->string('title');
             $table->text('description');
             $table->string('version');
-            $table->string('logo');
+            $table->string('logo')->nullable()->default(null);
             $table->integer('items_per_page');
             $table->boolean('enable_passkeys');
             $table->boolean('enable_reset_password');

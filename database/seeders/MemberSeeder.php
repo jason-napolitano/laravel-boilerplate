@@ -9,15 +9,20 @@ namespace Database\Seeders {
     {
         public function run(): void
         {
-            // administrator
             $member = Role::create(['name' => env('APP_DEFAULT_ROLE')]);
 
+            // --------------------------------------------
+            // dashboard
             $member->givePermissionTo('view_dashboard');
 
+            // --------------------------------------------
+            // passkeys
             $member->givePermissionTo('manage_passkeys');
             $member->givePermissionTo('delete_passkey');
             $member->givePermissionTo('create_passkey');
 
+            // --------------------------------------------
+            // profile
             $member->givePermissionTo('update_profile_image');
             $member->givePermissionTo('delete_profile_image');
             $member->givePermissionTo('update_password');

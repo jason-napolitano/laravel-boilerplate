@@ -17,7 +17,6 @@ namespace Database\Seeders {
                 'enable_passkeys'       => env('APP_ENABLE_PASSKEYS'),
                 'enable_reset_password' => env('APP_ENABLE_RESET_PASSWORD'),
                 'enable_registration'   => env('APP_ENABLE_REGISTRATION'),
-                'logo'                  => env('APP_LOGO'),
             ]);
         }
     }
