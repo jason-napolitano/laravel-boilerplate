@@ -74,7 +74,7 @@ namespace App\Http\Controllers {
 
         public function destroyImage(Models\User $user): Http\RedirectResponse
         {
-            Gate::authorize('updateImage', $user);
+            Gate::authorize('deleteImage', $user);
 
             $user->deleteImage(column: 'avatar');
 
