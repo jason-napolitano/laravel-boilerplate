@@ -4,11 +4,11 @@
             <create-user-form :roles="props.roles" />
         </template>
 
-        <el-tabs type="border-card">
-            <el-tab-pane label="Active Users">
+        <el-tabs type="border-card" v-model="byQueryParam">
+            <el-tab-pane label="Active Users" name="active">
                 <user-table :users="props.users" />
             </el-tab-pane>
-            <el-tab-pane label="Banned Users" v-if="can('manage_banned_users')">
+            <el-tab-pane label="Banned Users" v-if="can('manage_banned_users')" name="banned">
                 <user-table :users="props.bannedUsers" />
             </el-tab-pane>
         </el-tabs>
@@ -33,4 +33,8 @@ const props = defineProps<{
 // --------------------------------------------------------
 // auth check
 const { can } = useAuth()
+
+// --------------------------------------------------------
+// tab based routing
+const { byQueryParam } = useTabs('active', 'status')
 </script>

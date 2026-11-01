@@ -17,8 +17,8 @@
             </aside>
 
             <div class="flex w-3/4 flex-col space-y-4 md:w-4/5">
-                <el-tabs tab-position="top" type="border-card">
-                    <el-tab-pane label="Profile Details">
+                <el-tabs tab-position="top" type="border-card" v-model="byQueryParam">
+                    <el-tab-pane label="Profile Details" name="details">
                         <div class="flex flex-col space-y-2">
                             <el-divider content-position="left">Details</el-divider>
                             <div>
@@ -42,10 +42,10 @@
                             <div v-text="props.user['biography']" class="text-justify text-stone-400" />
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="Update Profile" v-if="currentUserCan(props.user, 'update_profile')">
+                    <el-tab-pane label="Update Profile" v-if="currentUserCan(props.user, 'update_profile')" name="update">
                         <edit-form :user="props.user" />
                     </el-tab-pane>
-                    <el-tab-pane label="Update Security" v-if="currentUserCan(props.user, 'update_security')">
+                    <el-tab-pane label="Update Security" v-if="currentUserCan(props.user, 'update_security')" name="security">
                         <el-tabs tab-position="left">
                             <el-tab-pane label="Password" v-if="currentUserCan(props.user, 'update_password')">
                                 <div class="flex justify-end">
@@ -99,4 +99,8 @@ const { logout, currentUserCan, isCurrentUser, forgotPassword } = useAuth()
 // --------------------------------------------------------
 // string manipulation
 const { pluralPossessive } = useString()
+
+// --------------------------------------------------------
+// tab based routing
+const { byQueryParam } = useTabs('details')
 </script>
