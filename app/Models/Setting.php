@@ -17,6 +17,7 @@ namespace App\Models {
         protected $fillable = [
             'enable_reset_password',
             'enable_registration',
+            'enable_otp_support',
             'enable_passkeys',
             'items_per_page',
             'description',
