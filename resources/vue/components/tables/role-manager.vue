@@ -4,7 +4,7 @@
             <el-collapse-item v-for="(role, index) in props.roles" :title="ucFirst(role['name'])" :name="index">
                 <div class="flex flex-col gap-2 border-t border-stone-200/75 pt-2 dark:border-stone-700">
                     <div class="flex justify-end px-2">
-                        <el-button type="danger" :icon="Trash2" :disabled="role['name'] == 'Member'" @click="deleteRole(role)">
+                        <el-button type="danger" :icon="Trash2" :disabled="role['name'] == ucFirst(env('DEFAULT_ROLE'))" @click="deleteRole(role)">
                             Delete Role
                         </el-button>
                     </div>
@@ -48,4 +48,7 @@ const { ucFirst, toTitleCase, replace } = useString()
 // --------------------------------------------------------
 // role management
 const { roleMatch, addPermissionToRole, deleteRole } = useRole()
+
+// env support
+const { env } = useApp()
 </script>
