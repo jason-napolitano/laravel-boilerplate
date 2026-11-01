@@ -21,6 +21,7 @@ namespace Database\Seeders {
             $member->givePermissionTo('update_profile_image');
             $member->givePermissionTo('delete_profile_image');
             $member->givePermissionTo('update_password');
+            $member->givePermissionTo('update_security');
             $member->givePermissionTo('update_profile');
             $member->givePermissionTo('view_profile');
         }
