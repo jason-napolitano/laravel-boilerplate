@@ -1,6 +1,6 @@
 import { router } from '@inertiajs/vue3'
 
-export function useTabs(defaultTab: string = null, param: string = 'tab') {
+export function useTabs(param: string = 'tab', defaultTab: string = null) {
     const params = new URLSearchParams(window.location.search)
 
     const byQueryParam = computed({

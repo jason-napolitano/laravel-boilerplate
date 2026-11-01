@@ -5,7 +5,7 @@
         </template>
 
         <el-tabs type="border-card" v-model="byQueryParam">
-            <el-tab-pane label="Active Users" name="active">
+            <el-tab-pane label="Active Users">
                 <user-table :users="props.users" />
             </el-tab-pane>
             <el-tab-pane label="Banned Users" v-if="can('manage_banned_users')" name="banned">
@@ -36,5 +36,5 @@ const { can } = useAuth()
 
 // --------------------------------------------------------
 // tab based routing
-const { byQueryParam } = useTabs('active', 'status')
+const { byQueryParam } = useTabs('status')
 </script>
