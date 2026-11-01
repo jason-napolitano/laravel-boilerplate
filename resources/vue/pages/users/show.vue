@@ -6,9 +6,9 @@
         <div class="flex gap-4">
             <aside class="w-1/4 md:w-1/5">
                 <user-image
-                    :can-update="currentUserCan(props.user, 'update_image')"
+                    :can-update="currentUserCan(props.user, 'update_profile_image')"
+                    :can-delete="can('delete_profile_image')"
                     image-class="h-full w-full object-cover"
-                    :can-delete="isCurrentUser(props.user)"
                     delete-route="users.image.destroy"
                     upload-route="users.image"
                     :model="props.user"
@@ -18,7 +18,7 @@
 
             <div class="flex w-3/4 flex-col space-y-4 md:w-4/5">
                 <el-tabs tab-position="top" type="border-card" v-model="byQueryParam">
-                    <el-tab-pane label="Profile Details" name="details">
+                    <el-tab-pane label="Profile Details">
                         <div class="flex flex-col space-y-2">
                             <el-divider content-position="left">Details</el-divider>
                             <div>
@@ -94,7 +94,7 @@ const props = defineProps<{
 
 // --------------------------------------------------------
 // auth checks
-const { logout, currentUserCan, isCurrentUser, forgotPassword } = useAuth()
+const { logout, currentUserCan, isCurrentUser, can, forgotPassword } = useAuth()
 
 // --------------------------------------------------------
 // string manipulation
@@ -102,5 +102,5 @@ const { pluralPossessive } = useString()
 
 // --------------------------------------------------------
 // tab based routing
-const { byQueryParam } = useTabs('details')
+const { byQueryParam } = useTabs()
 </script>

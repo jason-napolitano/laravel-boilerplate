@@ -18,9 +18,10 @@ namespace Database\Seeders {
             $member->givePermissionTo('delete_passkey');
             $member->givePermissionTo('create_passkey');
 
+            $member->givePermissionTo('update_profile_image');
+            $member->givePermissionTo('delete_profile_image');
             $member->givePermissionTo('update_password');
             $member->givePermissionTo('update_profile');
-            $member->givePermissionTo('update_image');
             $member->givePermissionTo('view_profile');
         }
     }

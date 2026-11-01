@@ -29,7 +29,12 @@ namespace App\Policies {
 
         public function updateImage(User $user, User $model): bool
         {
-            return $user->is($model) && $user->can('update_image');
+            return $user->is($model) && $user->can('update_profile_image');
+        }
+
+        public function deleteImage(User $user, User $model): bool
+        {
+            return $user->is($model) && $user->can('delete_profile_image');
         }
 
         public function updateRole(User $user, User $model): bool
