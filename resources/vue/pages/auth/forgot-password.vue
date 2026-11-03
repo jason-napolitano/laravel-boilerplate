@@ -1,7 +1,7 @@
 <template>
     <auth-layout title="Forgot Password">
         <div class="flex flex-col gap-4">
-            <p class="mt-2 text-gray-600 text-center">Enter your email address and we'll send you a password reset link.</p>
+            <p class="mt-2 text-center text-gray-600">Enter your email address and we'll send you a password reset link.</p>
             <el-form @submit.prevent="forgotPassword(form.email)">
                 <el-form-item label="Email Address" :error="form.errors.email">
                     <el-input v-model="form.email" />

@@ -10,9 +10,9 @@ export function useTabs(param: string = 'tab', defaultTab: string = null) {
             const query = params.toString()
 
             router.replace({
-                url: `${window.location.pathname}${query ? `?${query}` : ''}`
+                url: `${window.location.pathname}${query ? `?${query}` : ''}`,
             })
-        }
+        },
     })
 
     return { byQueryParam }

@@ -48,9 +48,9 @@
                     <el-tab-pane label="Update Security" v-if="currentUserCan(props.user, 'update_security')" name="security">
                         <el-tabs tab-position="left">
                             <el-tab-pane label="Password" v-if="currentUserCan(props.user, 'update_password')">
-                                <div class="flex justify-end">
+                                <!-- div class="flex justify-end">
                                     <el-button @click="forgotPassword(props.user['email'])">Send Reset Password Email</el-button>
-                                </div>
+                                </div -->
                                 <password-form :user="props.user" />
                             </el-tab-pane>
                             <el-tab-pane
