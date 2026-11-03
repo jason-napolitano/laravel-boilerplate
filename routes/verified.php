@@ -64,9 +64,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::post('{setting}/update-logo', [Controllers\SettingsController::class, 'updateImage'])
                 ->name('settings.update-logo');
-
-            Route::post('{setting}/delete-logo', [Controllers\SettingsController::class, 'deleteImage'])
-                ->name('settings.delete-logo');
         });
     });
 

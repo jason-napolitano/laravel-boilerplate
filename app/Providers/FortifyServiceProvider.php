@@ -2,7 +2,6 @@
 
 namespace App\Providers {
 
-    use App\Models\Setting;
     use App\Services\SettingsService;
     use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
     use Laravel\Fortify\Actions\CanonicalizeUsername;
@@ -10,7 +9,6 @@ namespace App\Providers {
     use Illuminate\Support\Facades\RateLimiter;
     use Illuminate\Cache\RateLimiting\Limit;
     use Illuminate\Support\ServiceProvider;
-    use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
     use Laravel\Fortify\Fortify;
     use Illuminate\Http\Request;
     use Illuminate\Support\Str;

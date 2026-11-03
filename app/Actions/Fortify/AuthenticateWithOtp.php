@@ -4,7 +4,6 @@ namespace App\Actions\Fortify {
 
     use Illuminate\Validation\ValidationException;
     use Illuminate\Contracts\Auth\StatefulGuard;
-    use Illuminate\Support\Facades\Notification;
     use App\Notifications\Auth\OtpNotification;
     use Laravel\Fortify\LoginRateLimiter;
     use Illuminate\Auth\Events\Failed;

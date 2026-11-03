@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers\Auth {
 
-    use App\Models\Setting;
-    use Illuminate\Validation\ValidationException;
-    use Illuminate\Http\RedirectResponse;
-    use Illuminate\Support\Facades\Auth;
     use App\Http\Controllers\Controller;
+    use App\Notifications\Auth\OtpNotification;
     use App\Services\Auth\OTPService;
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Validation\ValidationException;
     use Inertia\Response;
-    use Inertia\Inertia;
 
     class OTPVerificationController extends Controller
     {
         public function __construct(protected OTPService $otp)
         {
-            logger()->info('AuthenticateWithEmailOtp executed.');
             parent::__construct();
         }
 
         public function create(Request $request): Response|RedirectResponse
         {
-            if (! $request->session()->has('auth.otp.challenge')) {
-                return redirect()->route('login');
+            $challenge = $request->session()->get('auth.otp.challenge');
+
+            if (!$challenge) {
+                return to_route('login');
             }
 
-            return inertia('auth/otp/verify');
+            return inertia('auth/otp/verify', [
+                'resendAvailableIn' => $this->otp->resendAvailableIn($challenge),
+            ]);
         }
 
         /**
@@ -40,13 +42,13 @@ namespace App\Http\Controllers\Auth {
 
             $challenge = $request->session()->get('auth.otp.challenge');
 
-            if (! $challenge) {
+            if (!$challenge) {
                 return redirect()->route('login');
             }
 
             $user = $this->otp->verify($challenge, $request->input('code'));
 
-            if (! $user) {
+            if (!$user) {
                 throw ValidationException::withMessages([
                     'code' => 'The verification code is invalid or has expired.',
                 ]);
@@ -54,7 +56,6 @@ namespace App\Http\Controllers\Auth {
 
             $remember = $request->session()->get('auth.otp.remember', false);
 
-            // Remove the completed challenge.
             $this->otp->invalidate($challenge);
 
             $request->session()->forget([
@@ -62,12 +63,36 @@ namespace App\Http\Controllers\Auth {
                 'auth.otp.remember',
             ]);
 
-            // Authenticate only after successful OTP verification.
             Auth::guard(config('fortify.guard'))->login($user, $remember);
 
             $request->session()->regenerate();
 
             return redirect()->intended(config('fortify.home'));
+        }
+
+        public function resend(Request $request): RedirectResponse
+        {
+            $challenge = $request->session()->get('auth.otp.challenge');
+
+            if (!$challenge) {
+                return redirect()->route('login');
+            }
+
+            $result = $this->otp->resend($challenge);
+
+            try {
+                $result['user']->notify(
+                    new OtpNotification($result['code'])
+                );
+            } catch (\Throwable $exception) {
+                report($exception);
+
+                throw ValidationException::withMessages([
+                    'resend' => 'We could not send your verification code. Please try again.',
+                ]);
+            }
+
+            return back()->with('status', 'A new verification code has been sent.');
         }
     }
 }

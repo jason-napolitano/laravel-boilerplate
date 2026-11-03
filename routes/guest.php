@@ -42,4 +42,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/otp/verify', [Controllers\Auth\OTPVerificationController::class, 'store'])
         ->middleware('throttle:otp')
         ->name('otp.verify');
+
+    Route::post('/otp/resend', [Controllers\Auth\OTPVerificationController::class, 'resend'])
+        ->middleware('throttle:3,1')
+        ->name('otp.resend');
 });

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers {
 
     use App\Http\Requests\Settings\UpdateSettingsRequest;
-    use App\Models\Setting;
+    use App\Http\Requests\Settings\UpdateSiteLogoRequest;
     use Illuminate\Http\RedirectResponse;
-    use Illuminate\Http\Request;
+    use App\Models\Setting;
     use Inertia\Response;
 
     class SettingsController extends Controller
@@ -27,20 +27,11 @@ namespace App\Http\Controllers {
             return back();
         }
 
-        public function updateImage(Request $request, Setting $setting): RedirectResponse
+        public function updateImage(UpdateSiteLogoRequest $request, Setting $setting): RedirectResponse
         {
-            $request->validate([
-                'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:8196'],
-            ]);
+            $request->validated();
 
             $setting->updateImage('app', 'logo', 'logo', 'logo');
-
-            return back();
-        }
-
-        public function deleteImage(Setting $setting): RedirectResponse
-        {
-            $setting->deleteImage('app');
 
             return back();
         }

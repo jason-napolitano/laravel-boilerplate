@@ -6,7 +6,6 @@
                 <update-logo
                     :can-update="can('update_app_logo')"
                     upload-route="settings.update-logo"
-                    delete-route="settings.delete-logo"
                     button-text="Update Logo"
                     :model="props.settings"
                     :can-delete="false"

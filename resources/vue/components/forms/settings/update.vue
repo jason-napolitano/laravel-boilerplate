@@ -1,6 +1,6 @@
 <template>
     <el-form @submit.prevent="updateSettings">
-        <h1 class="mb-2 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Authentication Settings</h1>
+        <h1 class="mb-4 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Authentication Settings</h1>
         <el-row>
             <el-col :span="6">
                 <el-form-item label="Password Reset">

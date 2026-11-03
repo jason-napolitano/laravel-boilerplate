@@ -23,7 +23,7 @@ namespace App\Notifications\Auth {
 
         public function toMail(object $notifiable): MailMessage
         {
-            return (new MailMessage)
+            return (new MailMessage())
                 ->subject('Your Login Verification Code')
                 ->greeting('Hello '.$notifiable->name.',')
                 ->line('You requested to sign in to your account.')

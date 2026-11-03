@@ -11,6 +11,7 @@ namespace App\Models {
      * @property string $description
      * @property string $version
      * @property string $title
+     * @property string $logo
      */
     class Setting extends BaseModel
     {
