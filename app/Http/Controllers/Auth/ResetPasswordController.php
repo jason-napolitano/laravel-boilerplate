@@ -17,7 +17,7 @@ namespace App\Http\Controllers\Auth {
     {
         public function edit(Request $request, string $token): Response
         {
-            abort_if(!$this->settings->enable_reset_password, 403);
+            abort_if(!$this->settings->enable_reset_password, 404);
 
             return inertia('auth/reset-password', [
                 'email' => $request->query('email', ''),

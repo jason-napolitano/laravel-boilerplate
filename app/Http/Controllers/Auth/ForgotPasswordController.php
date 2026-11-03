@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Auth {
     {
         public function create(): Response
         {
-            abort_if(!$this->settings->enable_reset_password, 403);
+            abort_if(!$this->settings->enable_reset_password, 404);
 
             return inertia('auth/forgot-password');
         }

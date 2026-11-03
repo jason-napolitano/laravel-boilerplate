@@ -20,6 +20,8 @@ namespace App\Http\Controllers\Auth {
 
         public function create(Request $request): Response|RedirectResponse
         {
+            abort_if(!$this->settings->enable_otp_support, 404);
+
             $challenge = $request->session()->get('auth.otp.challenge');
 
             if (!$challenge) {
