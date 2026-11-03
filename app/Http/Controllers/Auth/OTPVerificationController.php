@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth {
 
-    use App\Http\Controllers\Controller;
-    use App\Notifications\Auth\OtpNotification;
-    use App\Services\Auth\OTPService;
-    use Illuminate\Http\RedirectResponse;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
     use Illuminate\Validation\ValidationException;
+    use App\Notifications\Auth\OTPNotification;
+    use Illuminate\Http\RedirectResponse;
+    use Illuminate\Support\Facades\Auth;
+    use App\Http\Controllers\Controller;
+    use App\Services\Auth\OTPService;
+    use Illuminate\Http\Request;
     use Inertia\Response;
 
     class OTPVerificationController extends Controller
@@ -84,7 +84,7 @@ namespace App\Http\Controllers\Auth {
 
             try {
                 $result['user']->notify(
-                    new OtpNotification($result['code'])
+                    new OTPNotification($result['code'])
                 );
             } catch (\Throwable $exception) {
                 report($exception);

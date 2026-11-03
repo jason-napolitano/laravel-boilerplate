@@ -15,7 +15,7 @@ namespace App\Models {
      * @property $user_id
      * @property $user
      */
-    class OtpData extends BaseModel
+    class OTPData extends BaseModel
     {
         protected $table = 'otp_data';
 

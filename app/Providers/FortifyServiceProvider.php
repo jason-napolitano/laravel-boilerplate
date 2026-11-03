@@ -5,7 +5,7 @@ namespace App\Providers {
     use App\Services\SettingsService;
     use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
     use Laravel\Fortify\Actions\CanonicalizeUsername;
-    use App\Actions\Fortify\AuthenticateWithOtp;
+    use App\Actions\Fortify\AuthenticateWithOTP;
     use Illuminate\Support\Facades\RateLimiter;
     use Illuminate\Cache\RateLimiting\Limit;
     use Illuminate\Support\ServiceProvider;
@@ -33,9 +33,9 @@ namespace App\Providers {
                 // authenticate using otp
                 Fortify::authenticateThrough(function (Request $request) {
                     return array_filter([
-                        config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
-                        config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
-                        AuthenticateWithOtp::class,
+	                    config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+	                    config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
+	                    AuthenticateWithOTP::class,
                     ]);
                 });
             }

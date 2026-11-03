@@ -7,7 +7,7 @@ namespace App\Notifications\Auth {
     use Illuminate\Notifications\Notification;
     use Illuminate\Bus\Queueable;
 
-    class OtpNotification extends Notification
+    class OTPNotification extends Notification
     {
         use Queueable;
 

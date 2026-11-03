@@ -4,7 +4,7 @@ namespace App\Actions\Fortify {
 
     use Illuminate\Validation\ValidationException;
     use Illuminate\Contracts\Auth\StatefulGuard;
-    use App\Notifications\Auth\OtpNotification;
+    use App\Notifications\Auth\OTPNotification;
     use Laravel\Fortify\LoginRateLimiter;
     use Illuminate\Auth\Events\Failed;
     use App\Services\Auth\OTPService;
@@ -12,7 +12,7 @@ namespace App\Actions\Fortify {
     use Laravel\Fortify\Fortify;
     use Throwable;
 
-    class AuthenticateWithOtp
+    class AuthenticateWithOTP
     {
         public function __construct(protected StatefulGuard $guard, protected LoginRateLimiter $limiter, protected OTPService $otp)
         {
@@ -49,7 +49,7 @@ namespace App\Actions\Fortify {
             $result = $this->otp->create($user);
 
             try {
-                $user->notify(new OtpNotification($result['code']));
+                $user->notify(new OTPNotification($result['code']));
             } catch (Throwable $exception) {
                 $this->otp->invalidate(
                     $result['challenge']

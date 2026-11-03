@@ -3,12 +3,12 @@
 namespace App\Services\Auth {
 
 
-    use App\Models\OtpData;
-    use App\Models\User;
-    use Illuminate\Support;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Hash;
     use Illuminate\Validation\ValidationException;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support;
+    use App\Models\OTPData;
+    use App\Models\User;
 
     class OTPService
     {
@@ -29,7 +29,7 @@ namespace App\Services\Auth {
 
             $challenge = Support\Str::random(64);
 
-            OtpData::create([
+            OTPData::create([
                 'user_id'        => $user->id,
                 'token_hash'     => Support\Facades\Hash::make($code),
                 'challenge_hash' => hash('sha256', $challenge),
@@ -50,7 +50,7 @@ namespace App\Services\Auth {
         public function verify(string $challenge, string $code): ?User
         {
             return Support\Facades\DB::transaction(function () use ($challenge, $code) {
-                $otp = OtpData::query()
+                $otp = OTPData::query()
                     ->where(
                         'challenge_hash',
                         hash('sha256', $challenge)
@@ -91,7 +91,7 @@ namespace App\Services\Auth {
         public function resend(string $challenge): array
         {
             return DB::transaction(function () use ($challenge) {
-                $otp = OtpData::query()
+                $otp = OTPData::query()
                     ->where('challenge_hash', hash('sha256', $challenge))
                     ->lockForUpdate()
                     ->first();
@@ -138,7 +138,7 @@ namespace App\Services\Auth {
 
         public function resendAvailableIn(string $challenge): int
         {
-            $otp = OtpData::query()->where('challenge_hash', hash('sha256', $challenge))->first();
+            $otp = OTPData::query()->where('challenge_hash', hash('sha256', $challenge))->first();
 
             if (!$otp || !$otp->last_sent_at) {
                 return 0;
@@ -154,7 +154,7 @@ namespace App\Services\Auth {
          */
         public function invalidate(string $challenge): void
         {
-            OtpData::query()->where('challenge_hash', hash('sha256', $challenge))->delete();
+            OTPData::query()->where('challenge_hash', hash('sha256', $challenge))->delete();
         }
     }
 }
