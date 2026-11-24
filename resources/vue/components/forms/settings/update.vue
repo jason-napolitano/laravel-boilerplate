@@ -1,5 +1,27 @@
 <template>
     <el-form @submit.prevent="updateSettings">
+        <h1 class="mb-2 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Application Settings</h1>
+        <el-row>
+            <el-col :span="8">
+                <el-form-item label="Application Title" :error="form.errors.title">
+                    <el-input v-model="form.title" :placeholder="props.settings.title" :disabled="cannot('update_app_title')" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="8">
+                <el-form-item label="Application Version" :error="form.errors.version">
+                    <el-input v-model="form.version" :placeholder="props.settings.version" :disabled="cannot('update_app_version')" />
+                </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+                <el-form-item label="Items Per Page">
+                    <el-select v-model="form.items_per_page" :disabled="cannot('update_items_per_page')">
+                        <el-option v-for="option in itemsOptions" :value="option" :label="option" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+        </el-row>
+
         <h1 class="mb-4 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Authentication Settings</h1>
         <el-row>
             <el-col :span="6">
@@ -32,28 +54,6 @@
             </el-col>
         </el-row>
 
-        <h1 class="mb-2 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Application Settings</h1>
-        <el-row>
-            <el-col :span="8">
-                <el-form-item label="Application Title" :error="form.errors.title">
-                    <el-input v-model="form.title" :placeholder="props.settings.title" :disabled="cannot('update_app_title')" />
-                </el-form-item>
-            </el-col>
-            <el-col :span="8">
-                <el-form-item label="Application Version" :error="form.errors.version">
-                    <el-input v-model="form.version" :placeholder="props.settings.version" :disabled="cannot('update_app_version')" />
-                </el-form-item>
-            </el-col>
-
-            <el-col :span="8">
-                <el-form-item label="Items Per Page">
-                    <el-select v-model="form.items_per_page" :disabled="cannot('update_items_per_page')">
-                        <el-option v-for="option in itemsOptions" :value="option" :label="option" />
-                    </el-select>
-                </el-form-item>
-            </el-col>
-        </el-row>
-
         <el-form-item label="Application Description" :error="form.errors.description">
             <el-input
                 :disabled="cannot('update_app_description')"
@@ -66,7 +66,9 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button size="default" native-type="submit" class="w-full" :loading="form.processing"> Submit </el-button>
+            <el-button size="default" native-type="submit" class="w-full" :loading="form.processing" :disabled="cannot('update_settings')">
+                Submit
+            </el-button>
         </el-form-item>
     </el-form>
 </template>
