@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers {
 
+    use Illuminate\Routing\Attributes\Controllers\Authorize;
     use Illuminate\Support;
     use Inertia\Response;
     use App\Models\User;
@@ -9,10 +10,9 @@ namespace App\Http\Controllers {
 
     class DashboardController extends Controller
     {
+        #[Authorize('view_dashboard')]
         public function __invoke(): Response
         {
-            abort_if(user()->cannot('view_dashboard'), 403);
-
             $registrations = $this->perYearData('created_at');
             $logins = $this->perYearData('last_login_at');
 

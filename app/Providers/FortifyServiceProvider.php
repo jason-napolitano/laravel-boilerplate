@@ -33,9 +33,9 @@ namespace App\Providers {
                 // authenticate using otp
                 Fortify::authenticateThrough(function (Request $request) {
                     return array_filter([
-	                    config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
-	                    config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
-	                    AuthenticateWithOTP::class,
+                        config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+                        config('fortify.lowercase_usernames') ? CanonicalizeUsername::class : null,
+                        AuthenticateWithOTP::class,
                     ]);
                 });
             }

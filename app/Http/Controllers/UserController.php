@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers {
 
+    use Illuminate\Routing\Attributes\Controllers\Authorize;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Http\Request;
     use App\Http\Requests;
@@ -11,10 +12,9 @@ namespace App\Http\Controllers {
 
     class UserController extends Controller
     {
+        #[Authorize('viewAny', Models\User::class)]
         public function index(): Response
         {
-            Gate::authorize('viewAny', user());
-
             $bannedUsers = Models\User::with('roles')->isBanned()->paginate($this->settings->items_per_page);
             $users = Models\User::with('roles')->isNotBanned()->paginate($this->settings->items_per_page);
             $roles = Models\Role::whereNot('name', 'admin')->get();
@@ -22,10 +22,9 @@ namespace App\Http\Controllers {
             return inertia('users/index', compact('users', 'bannedUsers', 'roles'));
         }
 
+        #[Authorize('view', 'user')]
         public function show(Models\User $user): Response
         {
-            Gate::authorize('view', $user);
-
             $permissions = Models\Permission::whereNot('name', 'view_dashboard')->get()->load('roles');
             $passkeys = $user->passkeys()->get(['id', 'name', 'created_at', 'last_used_at',]);
 
@@ -47,10 +46,9 @@ namespace App\Http\Controllers {
             return to_route('users.show', $user);
         }
 
+        #[Authorize('delete', 'user')]
         public function destroy(Models\User $user): Http\RedirectResponse
         {
-            Gate::authorize('delete', $user);
-
             if ($user->is(user())) {
                 logout_action(static fn () => $user->delete());
                 return to_route('login');
@@ -72,10 +70,9 @@ namespace App\Http\Controllers {
             return back();
         }
 
+        #[Authorize('deleteImage', 'user')]
         public function destroyImage(Models\User $user): Http\RedirectResponse
         {
-            Gate::authorize('deleteImage', $user);
-
             $user->deleteImage(column: 'avatar');
 
             return back();

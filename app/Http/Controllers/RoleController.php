@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers {
 
+    use Illuminate\Routing\Attributes\Controllers\Authorize;
     use Spatie\Permission\Models\Role as BaseRole;
     use App\Http\Requests\Roles\StoreRoleRequest;
     use Spatie\Permission\Models\Permission;
@@ -12,10 +13,9 @@ namespace App\Http\Controllers {
 
     class RoleController extends Controller
     {
+        #[Authorize('manage_roles', Role::class)]
         public function index(): Response
         {
-            abort_if(user()->cannot('manage_roles'), 403);
-
             $permissions = Permission::whereNot('name', '*')->whereNot('name', 'view_dashboard')->get();
             $roles = Role::with('permissions')->whereNot('name', 'admin')->get();
 
@@ -32,6 +32,7 @@ namespace App\Http\Controllers {
             return back();
         }
 
+        #[Authorize('delete_role', 'role')]
         public function destroy(Role $role): RedirectResponse
         {
             abort_if(user()->cannot('delete_role'), 403);
@@ -40,10 +41,9 @@ namespace App\Http\Controllers {
             return back();
         }
 
+        #[Authorize('add_permission_to_role', 'role')]
         public function addPermission(Request $request, Role $role): RedirectResponse
         {
-            abort_if(user()->cannot('add_permission_to_role'), 403);
-
             if (!$role->hasPermissionTo($request->permission['name'])) {
                 $role->givePermissionTo($request->permission['name']);
             } else {
