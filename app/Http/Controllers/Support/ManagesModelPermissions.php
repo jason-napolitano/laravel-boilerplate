@@ -17,20 +17,20 @@ namespace App\Http\Controllers\Support {
             ];
         }
 
-        public function withPermissionsFor(Database\Eloquent\Model $model): Support\Collection
+        public function withPermissionsFor(Database\Eloquent\Model $model)
         {
             return User::query()
-                ->with('modelPermissions', function ($query) use ($model) {
+                ->with(['modelPermissions' => function ($query) use ($model) {
                     $query->where('permissionable_type', $model->getMorphClass())
                         ->where('permissionable_id', $model->getKey())
                         ->with('permission:id,name');
-                })
-                ->paginate(10)
-                ->map(function (User $user) {
+                }])
+                ->paginate(10, pageName: 'permissions')
+                ->through(function (User $user) {
                     return [
-                        'id'                  => $user['id'],
-                        'name'                => $user['name'],
-                        'assignedPermissions' => $user['modelPermissions']
+                        'id'                  => $user->id,
+                        'name'                => $user->name,
+                        'assignedPermissions' => $user->modelPermissions
                             ->pluck('permission.name')
                             ->filter()
                             ->values(),
