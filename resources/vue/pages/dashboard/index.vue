@@ -2,10 +2,10 @@
     <dashboard-layout title="Dashboard">
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-6">
-                <chart :initial-data="props.registrations" label="Registrations / Month" :labels />
+                <chart :initial-data="props.registrations" label="Registrations / Month" />
             </div>
             <div class="col-span-6">
-                <chart :initial-data="props.logins" label="Logins / Month" :labels />
+                <chart :initial-data="props.logins" label="Logins / Month" />
             </div>
         </div>
     </dashboard-layout>
@@ -22,9 +22,4 @@ const props = defineProps<{
     registrations: number[]
     logins: number[]
 }>()
-
-// --------------------------------------------------------
-// label data
-const { getMonthsBy } = useMonths()
-const labels = computed(() => getMonthsBy('abbr'))
 </script>

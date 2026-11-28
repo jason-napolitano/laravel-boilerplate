@@ -13,33 +13,10 @@ namespace App\Http\Controllers {
         #[Authorize('view_dashboard')]
         public function __invoke(): Response
         {
-            $registrations = $this->perYearData('created_at');
-            $logins = $this->perYearData('last_login_at');
+            $registrations = yearly_data('created_at', User::class);
+            $logins = yearly_data('last_login_at', User::class);
 
             return inertia('dashboard/index', compact('registrations', 'logins'));
-        }
-
-        private function perYearData(string $field): Support\Collection
-        {
-            $users = User::query()
-                ->whereBetween($field, [
-                    Carbon::now()->startOfYear(),
-                    Carbon::now()->endOfYear(),
-                ])
-                ->get([$field])
-                ->groupBy(
-                    fn ($user) => Carbon::parse($user->getRawOriginal($field))->format('n')
-                );
-
-            $collection = collect();
-
-            for ($month = 1; $month <= 12; $month++) {
-                $collection->push(
-                    $users->get((string) $month, collect())->count()
-                );
-            }
-
-            return $collection;
         }
     }
 }

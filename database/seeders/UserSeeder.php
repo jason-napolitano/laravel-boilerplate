@@ -11,7 +11,7 @@ namespace Database\Seeders {
         {
             for ($i = 0; $i < 250; $i++) {
                 $user = User::factory()->create();
-                $user->assignRole(env('APP_DEFAULT_ROLE'));
+                $user->assignRole(config('auth.defaults.default_role'));
             }
         }
     }

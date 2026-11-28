@@ -13,6 +13,8 @@ namespace Database\Seeders {
                 SettingsSeeder::class,
                 MemberSeeder::class,
                 AdminSeeder::class,
+                UserSeeder::class,
+                CategorySeeder::class,
             ]);
         }
     }

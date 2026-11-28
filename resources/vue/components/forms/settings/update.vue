@@ -1,27 +1,5 @@
 <template>
     <el-form @submit.prevent="updateSettings">
-        <h1 class="mb-2 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Application Settings</h1>
-        <el-row>
-            <el-col :span="8">
-                <el-form-item label="Application Title" :error="form.errors.title">
-                    <el-input v-model="form.title" :placeholder="props.settings.title" :disabled="cannot('update_app_title')" />
-                </el-form-item>
-            </el-col>
-            <el-col :span="8">
-                <el-form-item label="Application Version" :error="form.errors.version">
-                    <el-input v-model="form.version" :placeholder="props.settings.version" :disabled="cannot('update_app_version')" />
-                </el-form-item>
-            </el-col>
-
-            <el-col :span="8">
-                <el-form-item label="Items Per Page">
-                    <el-select v-model="form.items_per_page" :disabled="cannot('update_items_per_page')">
-                        <el-option v-for="option in itemsOptions" :value="option" :label="option" />
-                    </el-select>
-                </el-form-item>
-            </el-col>
-        </el-row>
-
         <h1 class="mb-4 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Authentication Settings</h1>
         <el-row>
             <el-col :span="6">
@@ -49,6 +27,28 @@
                 <el-form-item label="OTP Support" :error="form.errors.enable_otp_support">
                     <el-select v-model="form.enable_otp_support" :disabled="cannot('enable_one_time_passwords')">
                         <el-option v-for="option in dropdownOptions" :value="option.value" :key="option.value" :label="option.label" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+        </el-row>
+
+        <h1 class="mb-2 border-b border-stone-200 pb-2 text-lg dark:border-stone-600">Application Settings</h1>
+        <el-row>
+            <el-col :span="8">
+                <el-form-item label="Application Title" :error="form.errors.title">
+                    <el-input v-model="form.title" :placeholder="props.settings.title" :disabled="cannot('update_app_title')" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="8">
+                <el-form-item label="Application Version" :error="form.errors.version">
+                    <el-input v-model="form.version" :placeholder="props.settings.version" :disabled="cannot('update_app_version')" />
+                </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+                <el-form-item label="Items Per Page">
+                    <el-select v-model="form.items_per_page" :disabled="cannot('update_items_per_page')">
+                        <el-option v-for="option in itemsOptions" :value="option" :label="option" />
                     </el-select>
                 </el-form-item>
             </el-col>

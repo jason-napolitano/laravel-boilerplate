@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests\Settings;
+namespace App\Http\Requests\Settings {
 
-use Illuminate\Foundation\Http\FormRequest;
+    use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSiteLogoRequest extends FormRequest
-{
-    public function authorize(): bool
+    class UpdateSiteLogoRequest extends FormRequest
     {
-        return $this->user()->can('update_app_logo');
-    }
+        public function authorize(): bool
+        {
+            return $this->user()->can('update_app_logo');
+        }
 
-    public function rules(): array
-    {
-        return [
-            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:8196'],
-        ];
+        public function rules(): array
+        {
+            return [
+                'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:8196'],
+            ];
+        }
     }
 }

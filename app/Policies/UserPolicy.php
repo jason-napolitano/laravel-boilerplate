@@ -51,5 +51,10 @@ namespace App\Policies {
         {
             return $user->can('ban_user');
         }
+
+        public function managePermissions(User $authUser, User $user): bool
+        {
+            return $authUser->can('manage_user_permissions');
+        }
     }
 }

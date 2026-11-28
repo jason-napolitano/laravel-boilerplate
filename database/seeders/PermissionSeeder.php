@@ -9,6 +9,14 @@ namespace Database\Seeders {
     {
         public function run(): void
         {
+            // test permissions
+            Permission::create(['name' => 'manage_user_permissions']);
+            Permission::create(['name' => 'restore']);
+            Permission::create(['name' => 'create']);
+            Permission::create(['name' => 'update']);
+            Permission::create(['name' => 'delete']);
+            Permission::create(['name' => 'read']);
+
             // --------------------------------------------
             // settings
             Permission::create(['name' => 'manage_settings']);

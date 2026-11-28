@@ -2,15 +2,18 @@
 
 namespace App\Models {
 
+    use Illuminate\Database\Eloquent\Relations\MorphMany;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Database\Eloquent\Attributes\UsePolicy;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Attributes\Hidden;
     use Illuminate\Database\Eloquent\Concerns\HasUuids;
+    use Illuminate\Database\Eloquent\Relations\HasMany;
     use Laravel\Fortify\PasskeyAuthenticatable;
     use Laravel\Fortify\Contracts\PasskeyUser;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Notifications\Notifiable;
+    use Illuminate\Database\Eloquent\Model;
     use Spatie\Permission\Traits\HasRoles;
     use App\Models\Support\ManagesImages;
     use App\Models\Support\FormatsDates;
@@ -77,6 +80,33 @@ namespace App\Models {
         public function scopeIsNotBanned(Builder $query): void
         {
             $query->where('is_banned', false);
+        }
+
+        // permissionable helpers
+        public function modelPermissions(): HasMany
+        {
+            return $this->hasMany(UserModelPermission::class);
+        }
+
+        public function hasModelPermission(string $permission, BaseModel $model): bool
+        {
+            return $this->modelPermissions()->whereHas('permission', fn($query) => $query->where('name', $permission))
+                ->where('permissionable_type', $model->getMorphClass())
+                ->where('permissionable_id', $model->getKey())
+                ->exists();
+        }
+
+        public function getModelPermissions(Model $model): array
+        {
+            return $this->modelPermissions()
+                ->where('permissionable_type', $model->getMorphClass())
+                ->where('permissionable_id', $model->getKey())
+                ->with('permission:id,name')
+                ->get()
+                ->pluck('permission.name')
+                ->filter()
+                ->values()
+                ->all();
         }
     }
 }

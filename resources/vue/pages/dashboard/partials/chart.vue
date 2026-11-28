@@ -24,7 +24,7 @@ const props = withDefaults(
         showCount?: boolean
         showLegend?: boolean
         colors?: string[]
-        labels: string[]
+        labels?: string[]
         label: string
     }>(),
     {
@@ -32,6 +32,7 @@ const props = withDefaults(
         showLegend: false,
         responsive: true,
         showCount: false,
+        labels: null,
         colors: [],
     },
 )
@@ -58,10 +59,19 @@ const chartOptions = {
 
 // --------------------------------------------------------
 // chart data
-const data = ref(props.initialData)
+const labels = ref([])
+const data = ref([])
+
+props.initialData.forEach((value) => {
+    data.value.push(value['total'])
+
+    if (value['month']) {
+        labels.value.push(value['month'])
+    }
+})
 
 const chartData = computed(() => ({
-    labels: props.labels,
+    labels: props.labels ?? labels.value,
     datasets: [
         {
             data: data.value,

@@ -67,6 +67,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
+    Route::patch(
+        'users/{user}/model-permissions', [Controllers\UserModelPermissionController::class, 'update'])
+        ->name('users.model-permissions.update');
+
+
+
+
+
+    Route::get('categories', [Controllers\CategoryController::class, 'index'])
+        ->name('categories.index');
+
+    Route::get('categories/{category}', [Controllers\CategoryController::class, 'show'])
+        ->name('categories.show');
+
     // ------------------------------------------------------------------------
     // logout
     Route::post('logout', [Controllers\Auth\AuthenticationController::class, 'destroy'])

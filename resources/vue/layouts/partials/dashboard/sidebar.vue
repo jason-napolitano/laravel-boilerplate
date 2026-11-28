@@ -12,6 +12,7 @@
                 <item label="Dashboard" href="dashboard" pages="dashboard" :icon="GaugeCircle" v-if="can('view_dashboard')" />
                 <item label="Users" href="users.index" pages="users.*" :icon="Users" v-if="can('manage_users')" />
                 <item label="Authorization" href="roles.index" pages="roles.*" :icon="KeySquare" v-if="can('manage_roles')" />
+                <item label="Categories" href="categories.index" pages="categories.*" :icon="Files">Categories</item>
             </nav>
         </div>
         <div class="text-center">v.{{ $page.props.settings['version'] }}</div>
@@ -21,7 +22,7 @@
 <script setup lang="ts">
 // --------------------------------------------------------
 // imports
-import { GaugeCircle, Users, KeySquare, Settings } from 'lucide-vue-next'
+import { GaugeCircle, Users, KeySquare, Settings, Files } from 'lucide-vue-next'
 import Item from './sidebar/item.vue'
 
 // --------------------------------------------------------

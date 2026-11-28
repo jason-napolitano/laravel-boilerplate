@@ -9,7 +9,7 @@ namespace Database\Seeders {
     {
         public function run(): void
         {
-            $member = Role::create(['name' => env('APP_DEFAULT_ROLE')]);
+            $member = Role::create(['name' => config('auth.defaults.default_role')]);
 
             // --------------------------------------------
             // dashboard
