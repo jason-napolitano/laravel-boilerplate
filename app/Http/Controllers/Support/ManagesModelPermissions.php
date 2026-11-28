@@ -25,7 +25,7 @@ namespace App\Http\Controllers\Support {
                         ->where('permissionable_id', $model->getKey())
                         ->with('permission:id,name');
                 }])
-                ->paginate(10, pageName: 'permissions')
+                ->paginate(config('app.default_pagination'), pageName: 'permissions')
                 ->through(function (User $user) {
                     return [
                         'id'                  => $user->id,
