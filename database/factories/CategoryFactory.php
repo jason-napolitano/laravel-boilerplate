@@ -1,24 +1,22 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories {
 
-use App\Models\Category;
-use Illuminate\Database\Eloquent\Factories\Factory;
+    use App\Models\Category;
+    use Illuminate\Database;
 
-/**
- * @extends Factory<Category>
- */
-class CategoryFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    class CategoryFactory extends Database\Eloquent\Factories\Factory
     {
-        return [
-            'name' => fake()->name(),
-        ];
+        /**
+         * Define the model's default state.
+         *
+         * @return array<string, mixed>
+         */
+        public function definition(): array
+        {
+            return [
+                'name' => fake()->categoryName(),
+            ];
+        }
     }
 }
